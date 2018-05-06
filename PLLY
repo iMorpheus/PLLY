@@ -1,0 +1,28 @@
+#!/bin/bash
+ set -euo pipefail
+ IFS=$'\n\t'
+
+function PLLY()
+{
+read -p "What would you like to name the file:" -e FileName;
+ls ./TXT/;
+cd ./TXT/;
+read -p "Which file would you like to convert: " -e Original;
+echo $Original;
+
+TXT=$(cat $Original);
+# echo $TXT;
+# pwd;
+cd ..;
+cd ./OUTPUT/;
+aws polly synthesize-speech \
+  --text-type ssml \
+  --text '<speak> "'"$TXT"'" </speak>' \
+  --output-format mp3 \
+  --voice-id Joanna \
+$FileName.mp3 ;
+open -R $FileName.mp3
+
+
+}
+trap PLLY EXIT
