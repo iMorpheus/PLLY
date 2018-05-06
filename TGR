@@ -1,0 +1,30 @@
+#!/bin/bash
+set -euo pipefail
+
+function TGR()
+
+{
+cd ./OUTPUT/;
+ls ;
+
+read -p "Input File: " -e INPUT
+read -p "Title: " -e TITLE;
+# read -p "Author: " -e AUTHOR;
+read -p "Album Name: " -e ALBUM;
+read -p "Track No.: " -e TRACK;
+read -p "Output File: " -e FINAL ;
+
+ffmpeg -i $INPUT -i ~/Dropbox/Ds-Radio/Gumroad-Artwork.png -map 0:0 -map 1:0 -metadata:s:v comment="Cover (front)" \
+  -metadata title="$TITLE" \
+  -metadata author="Derek L. Arnwine" \
+  -metadata album="$ALBUM" \
+  -metadata track="$TRACK" \
+  -metadata genre="Education" ../FINAL/"$FINAL".mp3;
+cd ..;
+cd ./FINAL/;
+afinfo "$FINAL".mp3 ;
+open -R "$FINAL".mp3
+
+}
+
+trap TGR EXIT
