@@ -16,7 +16,7 @@ read -p "Output File: " -e FINAL ;
 
 ffmpeg -i $INPUT -i ~{Directory} -map 0:0 -map 1:0 -metadata:s:v comment="Cover (front)" \
   -metadata title="$TITLE" \
-  -metadata author="Derek L. Arnwine" \
+  -metadata author="{YourNameHere}" \
   -metadata album="$ALBUM" \
   -metadata track="$TRACK" \
   -metadata genre="Education" ../FINAL/"$FINAL".mp3;
