@@ -4,23 +4,31 @@
 
 function PLLY()
 {
+# File name and File to convert
 read -p "What would you like to name the file:" -e FileName;
 ls ./TXT/;
 cd ./TXT/;
 read -p "Which file would you like to convert: " -e Original;
 echo $Original;
 
+# Read file into TXT
 TXT=$(cat $Original);
 # echo $TXT;
 # pwd;
+
+# Move to save position
 cd ..;
 cd ./OUTPUT/;
+
+# Talk to polly
 aws polly synthesize-speech \
   --text-type ssml \
   --text '<speak> "'"$TXT"'" </speak>' \
   --output-format mp3 \
   --voice-id Joanna \
 $FileName.mp3 ;
+
+# Go to the file
 open -R $FileName.mp3
 
 
